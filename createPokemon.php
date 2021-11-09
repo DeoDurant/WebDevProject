@@ -26,8 +26,8 @@ require 'authenticate.php';
             <form action="process.php" method="post">
                 <fieldset>
                 <p>
-                    <label for="name">Name of the Pokemon: </label>
-                    <input name="name" id="name">
+                    <label for="pokename">Name of the Pokemon: </label>
+                    <input name="pokename" id="pokename">
                 </p>
                 <p>
                     <label for="typing">Projected typing: </label>
@@ -42,7 +42,7 @@ require 'authenticate.php';
                     <textarea name="notes" id="notes"></textarea>
                 </p>
                 <p>
-                    <input type="submit" name="command" value="createPokemon">
+                    <input type="submit" id="submit" name="Submit" value="Submit">
                 </p>
                 </fieldset>
             </form>
