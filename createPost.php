@@ -7,7 +7,7 @@ require 'authenticate.php';
 <html>
 <head>
     <meta charset="utf-8">
-    <title>Professor Oak's Pokedex - New Pokemon</title>
+    <title>Professor Oak's Pokedex - New Post</title>
 
 </head>
 <body>
