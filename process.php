@@ -56,57 +56,64 @@ if(isset($_POST['post'])){
         exit;
     }
 }
-    // if($_POST['command'] === "Update")
-    // {
-    // if ($_POST && isset($_POST['id']) && isset($_POST['content']) && isset($_POST['title'])) 
-    // {
-    //     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-    //     $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-    //     $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
-      
-    //     $query = "UPDATE blog SET content = :content, title = :title WHERE id = :id";
-    //     $statement = $db->prepare($query);
-    //     $statement->bindValue(':content', $content);
-    //     $statement->bindValue(':title', $title);
-    //     $statement->bindValue(':id', $id, PDO::PARAM_INT);
-      
-    //     $statement->execute();
 
-    //     header("Location: homepage.php");
-    //     exit;
-    //   } 
-    //   else if (isset($_GET['id'])) 
-    //   {
-    //     $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
-      
-    //     $query = "SELECT * FROM blog WHERE id = :id";
-    //     $statement = $db->prepare($query);
-    //     $statement->bindValue(':id', $id, PDO::PARAM_INT);
-      
-    //     $statement->execute();
-    //     $blog = $statement->fetch();
-    //   } 
-    //   else 
-    //   {
-    //     $id = false;
-    //   }
-    // }
-    //   if($_POST['command'] === "Delete")
-    //   {
-    //   if ($_POST && isset($_POST['id']) && isset($_POST['content']) && isset($_POST['title'])) 
-    //   {
-    //     $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
-      
-    //     $query = "DELETE FROM blog WHERE id = :id";
-    //     $statement = $db->prepare($query);
-    //     $statement->bindValue(':id', $id);
-      
-    //     $statement->execute();
-    //     $statement->fetch();
+// UPDATE discussion if author, content and id are present in POST.
+if (isset($_POST['Edit'])) {
+    if ($_POST && isset($_POST['id']) && isset($_POST['content']) && isset($_POST['title'])){
+        // Sanitize user input to escape HTML entities and filter out dangerous characters.
+        $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_SPECIAL_CHARS);
+        $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_SPECIAL_CHARS);
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+    
+        // Build the parameterized SQL query and bind to the above sanitized values.
+        $query     = "UPDATE discussion SET title = :title, content = :content WHERE id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':title', $title);
+        $statement->bindValue(':content', $content);
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
+    
+        // Execute the INSERT.
+        $statement->execute();
+    
+        // Redirect after update.
+        header("Location: discussion.php");
+        exit;
+    }   
+    else if (isset($_GET['id'])) { // Retrieve quote to be edited, if id GET parameter is in URL.
+        // Sanitize the id. Like above but this time from INPUT_GET.
+        $id = filter_input(INPUT_GET, 'id', FILTER_SANITIZE_NUMBER_INT);
+    
+        // Build the parametrized SQL query using the filtered id.
+        $query = "SELECT * FROM discussion WHERE id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':id', $id, PDO::PARAM_INT);
+    
+        // Execute the SELECT and fetch the single row returned.
+        $statement->execute();
+        $discussion = $statement->fetch();
+    } 
+    else {
+        $id = false; // False if we are not UPDATING or SELECTING.
+    }
+}
 
-    //     header("Location: homepage.php");
-    //     exit;
-    //   }
-    // }
+// DELETE a discussion post
+if (isset($_POST['Delete'])){
+    if ($_POST && isset($_POST['id']) && isset($_POST['content']) && isset($_POST['title'])){
+    
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+  
+        $query = "DELETE FROM discussion WHERE id = :id";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':id', $id);
+  
+        $statement->execute();
+        $statement->fetch();
+
+        header("Location: discussion.php");
+        exit;
+  }
+
+}
 
 ?>
