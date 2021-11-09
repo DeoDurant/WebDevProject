@@ -48,7 +48,7 @@
     <?php if($row = $discussion): ?>
         <h1><?= $row['title'] ?></h1>
         <h3><?= $row['content']?></h3>
-        <p><small><?=$row['datetime'] ?> - <a href="edit.php?id=<?= $row['id'] ?>">Edit</a></small></p>
+        <p><small><?=$row['datetime'] ?> - <a href="editPost.php?id=<?= $row['id'] ?>">Edit</a></small></p>
     <?php else: ?>
         <?= $row['content'] ?>
     <?php endif ?>
