@@ -3,7 +3,7 @@
 require('connect.php');
 
 // Insert a new pokemon finding into the site.
-if(isset($_POST['Submit']))
+if(isset($_POST['create']))
 {
     if ($_POST && isset($_POST['pokename']) && isset($_POST['typing']) 
             && isset($_POST['ability']) && isset($_POST['notes'])) 
@@ -28,6 +28,31 @@ if(isset($_POST['Submit']))
         $statement->fetch();
 
         header("Location: index.php");
+        exit;
+    }
+}
+
+// Insert for discussions table.
+if(isset($_POST['post'])){
+
+    if ($_POST && isset($_POST['title']) && isset($_POST['content'])) 
+    {
+        $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
+        $title = filter_input(INPUT_POST, 'title', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        $content = filter_input(INPUT_POST, 'content', FILTER_SANITIZE_FULL_SPECIAL_CHARS);
+        if(empty($title) || empty($content))
+        {
+            $error = true;
+        }
+        $query = "INSERT INTO discussion (id, title, content, datetime) VALUES (NULL, :title, :content, current_timestamp())";
+        $statement = $db->prepare($query);
+        $statement->bindValue(':title', $title);
+        $statement->bindValue(':content', $content);
+
+        $statement->execute();
+        $statement->fetch();
+
+        header("Location: discussion.php");
         exit;
     }
 }
