@@ -42,7 +42,7 @@ require 'authenticate.php';
                     <textarea name="notes" id="notes"></textarea>
                 </p>
                 <p>
-                    <input type="submit" name="command" value="Create">
+                    <input type="submit" name="command" value="createPokemon">
                 </p>
                 </fieldset>
             </form>
