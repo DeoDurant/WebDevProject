@@ -2,49 +2,50 @@
 
 require('connect.php');
 
-$query = "SELECT * FROM discussion";
+$query = "SELECT * FROM discussion ORDER BY id DESC LIMIT 10";
 $statement = $db->prepare($query);
 $statement->execute();
 ?>
 
+<!DOCTYPE html>
+<html>
+
+<head>
+    <meta charset="utf-8">
+    <title>Professor Oak's Pokedex - Home</title>
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <h1>Professor Oak's Pokedex</h1>
-    <section>
-        <section>
-            <h1><a href="homepage.php">Home</a></h1>
-        </section>
+    <?php include('navbar.php') ?>
+    
+    <div class="container">
+    <h1>Forum Posts</h1>
+        <?php if ($statement->rowCount() == 0) : ?>
+            <col><?= "No posts here"; ?></col>
+        <?php endif ?>
+        <?php while ($row = $statement->fetch()) : ?>
+            <div class="row">
+                <div class="col"><a href="showPost.php?id=<?= $row['id'] ?>"><?= $row['title'] ?></a></div>
 
-        <ul>
-            <li><a href="index.php" class="active">Pokedex</a></li>
-            <li><a href="create.php">New Post</a></li>
-            <li><a href="discussion.php">Discussion</a></li>
-        </ul>
+                <?php if (strlen($row['content']) > 200) : ?>
+                    <div class="col"><?= substr($row['content'], 0, 200); ?>Read Full Post</div>
+                <?php else : ?>
+                    <div class="col"><?= $row['content'] ?></div>
+                <?php endif ?>
 
-        <section>
-            <?php if($statement->rowCount()==0): ?>
-                <li><?="No posts here"; ?></li>
-            <?php endif ?>
-            <?php while($row = $statement->fetch()): ?>
-                <h1><?= $row['title'] ?></h1>
-                
-                <section>
-                    <?php if (strlen($row['content']) > 200): ?>
-                    <p><?= substr($row['content'], 0, 200); ?>Read Full Post</p>
-                    <?php else: ?>
-                   <p><?= $row['content'] ?></p>
-                   <?php endif ?>
-                </section>
-                <h3><?= $row['datetime'] ?></h3>
-                
-            <?php endwhile ?>
-        </section>
-
-        <section>
-            <?php echo (date('d-m-y')); ?>
-        </section>
-
-    </section>
-
+                <div class="col"><?= $row['datetime'] ?> - <a href="editPost.php?id=<?= $row['id'] ?>">Edit</a></div>
+            </div>
+        <?php endwhile ?>
+    </div>
+    </div>
 </body>
+
 </html>
