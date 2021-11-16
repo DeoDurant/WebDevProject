@@ -1,6 +1,8 @@
 <?php
-//Creates a new blog post.
-require 'authenticate.php';
+// Checks if there is a current session set, and if the current session is a guest.
+if (!isset($_SESSION) || $_SESSION['username'] == "guest"){
+    header("index.php");
+}
 ?>
 
 <!DOCTYPE html>
@@ -8,21 +10,17 @@ require 'authenticate.php';
 <head>
     <meta charset="utf-8">
     <title>Professor Oak's Pokedex - New Post</title>
-
+    <link rel="stylesheet" href="styles.css">
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400&display=swap" rel="stylesheet">
+    <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
 <body>
-    <h1>Professor Oak's Pokedex - New Post</h1>
-    <section>
-        <section>
-            <h1><a href="index.php">Home</a></h1>
-        </section>
-
-        <ul>
-            <li><a href="index.php" class="active">Pokedex</a></li>
-            <li><a href="discussion.php">Discussion</a></li>
-            <li><a href="createPokemon.php">New Pokemon</a></li>
-            <li><a href="createPost.php">New Post</a></li>
-        </ul>
+    <?php include('navbar.php') ?>
 
         <section>
             <form action="process.php" method="post">
