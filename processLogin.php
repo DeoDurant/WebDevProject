@@ -1,5 +1,5 @@
 <?php
-include('connect.php');
+require('connect.php');
 session_start();
 
 $id = filter_input(INPUT_POST, 'id', FILTER_SANITIZE_NUMBER_INT);
@@ -15,7 +15,8 @@ if (isset($_POST['submit']) == "register") {
     ) {
         
         if ($password != $confpassword){
-            exit("Passwords do not match!"); 
+            header("Location: register.php?error=Passwords do not match.");
+            exit();
         }
         
         $query = "INSERT INTO accounts(id, username, email, password) VALUES (NULL, :username, :email, :password)";
@@ -28,7 +29,7 @@ if (isset($_POST['submit']) == "register") {
         $statement->fetch();
 
         header("Location: login.php");
-        exit;
+        exit();
     }
 }
 
@@ -50,17 +51,15 @@ if (isset($_POST['submit']) == "login") {
         foreach($users as $user) :
             if($selectedUser['username'] == $username && password_verify($password, $selectedUser['password'])) {
                 $_SESSION['username'] = $selectedUser['username'];
-                echo '<script>alert("Welcome to Professor Oaks Pokedex")</script>';
 
-                //If username and password is correct send user the index page.
+                //If username and password is correct send user to the index page.
                 header("Location: index.php");
                 exit();
             }
             else
             {
                 //If username and password is incorrect send user back to login page.
-                echo '<script>alert("Incorrect username or password.")</script>';
-                header("Location: login.php");
+                header("Location: login.php?error=Incorrect username or password.");
                 exit();
             }
         endforeach;
