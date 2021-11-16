@@ -1,5 +1,5 @@
 <?php
-//Creates a new blog post.
+// Checks if there is a current session set, and if the current sessions username is of admin.
 if (!isset($_SESSION) || $_SESSION['username'] != "admin"){
     header("index.php");
 }
