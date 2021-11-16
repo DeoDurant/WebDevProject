@@ -1,6 +1,10 @@
 <?php
-
+include('navbar.php');
 require('connect.php');
+
+if(!isset($_SESSION['username'])){
+   header('Location: login.php');
+}
 
 $query = "SELECT * FROM pokemon ORDER BY id ASC LIMIT 10";
 $statement = $db->prepare($query);
@@ -24,7 +28,6 @@ $statement->execute();
 </head>
 
 <body>
-    <?php include('navbar.php'); ?>
     <div class="container">
         <h1>Pokedex Showcase</h1>
         <?php if ($statement->rowCount() == 0) : ?>
