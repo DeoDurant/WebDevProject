@@ -104,7 +104,7 @@ if (isset($_GET['id'])) {
                             <form action="processComment.php" method="post">
                                 <input type="hidden" id="post_id" name="post_id" value="<?php echo $commentId ?>"></input>
                                 <input type="hidden" id="id" name="id" value="<?php echo $comments['id'] ?>"></input>
-                                <input type="submit" id="Delete" name="Delete" value="Delete Comment" onclick="return confirm('Delete post?')"></input>
+                                <input class="btn btn-danger" type="submit" id="Delete" name="Delete" value="Delete Comment" onclick="return confirm('Delete post?')"></input>
                                 <br></br>
                             </form>
                         </div>
@@ -145,7 +145,7 @@ if (isset($_GET['id'])) {
                     </div>
                 </div>
                 <div class="form-group">
-                    <input type="submit" id="submit" name="submit" value="Submit">
+                    <input class="btn btn-primary" type="submit" id="submit" name="submit" value="Submit">
                 </div>
             </form>
         <?php endif ?>
