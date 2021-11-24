@@ -1,12 +1,14 @@
 <?php
-// Checks if there is a current session set, and if the current sessions username is of admin.
-if (!isset($_SESSION) || $_SESSION['username'] != "admin"){
-    header("index.php");
+include('navbar.php');
+// Checks if there is no current session set, and if the current sessions username is not admin.
+if (!isset($_SESSION) || $_SESSION['username'] != "admin") {
+    header("Location: index.php");
 }
 ?>
 
 <!DOCTYPE html>
 <html>
+
 <head>
     <meta charset="utf-8">
     <title>Professor Oak's Pokedex - New Pokemon</title>
@@ -19,40 +21,78 @@ if (!isset($_SESSION) || $_SESSION['username'] != "admin"){
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
 </head>
+
 <body>
-    <?php include('navbar.php') ?>
-
-    <section>
+    <div class="container">
         <form action="process.php" method="post">
-            <fieldset>
-                <legend>New Pokemon</legend>
-                <p>
-                    <label for="pokename">Name of the Pokemon: </label>
-                    <input name="pokename" id="pokename">
-                </p>
-                <p>
-                    <label for="typing">Projected typing: </label>
-                    <input name="typing" id="typing"></input>
-                </p>
-                <p>
-                    <label for="ability">Projected ability: </label>
-                    <input name="ability" id="ability"></input>
-                </p>
-                <p>
-                    <label for="notes">Notes: </label>
-                    <textarea rows="8" name="notes" id="notes"></textarea>
-                </p>
-                <p>
-                    <input type="submit" id="create" name="create" value="Create Pokemon">
-                </p>
-            </fieldset>
+            <legend>Add New Pokemon</legend>
+            <div class="form-group row">
+                <label for="pokename" class="col-2 col-form-label">Name</label>
+                <div class="col-10">
+                    <input name="pokename" id="pokename" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="ability" class="col-2 col-form-label">Ability</label>
+                <div class="col-10">
+                    <input name="ability" id="ability" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="typing" class="col-2 col-form-label">Typing</label>
+                <select name="typing1" class="custom-select col-5">
+                    <option value="Normal">Normal</option>
+                    <option value="Fire">Fire</option>
+                    <option value="Water">Water</option>
+                    <option value="Grass">Grass</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Ice">Ice</option>
+                    <option value="Fighting">Fighting</option>
+                    <option value="Poison">Poison</option>
+                    <option value="Ground">Ground</option>
+                    <option value="Flying">Flying</option>
+                    <option value="Psychic">Psychic</option>
+                    <option value="Bug">Bug</option>
+                    <option value="Rock">Rock</option>
+                    <option value="Ghost">Ghost</option>
+                    <option value="Dark">Dark</option>
+                    <option value="Dragon">Dragon</option>
+                    <option value="Steel">Steel</option>
+                    <option value="Fairy">Fairy</option>
+                </select>
+                <select name="typing2" class="custom-select col-5">
+                    <option>No Second Typing</option>
+                    <option value="Normal">Normal</option>
+                    <option value="Fire">Fire</option>
+                    <option value="Water">Water</option>
+                    <option value="Grass">Grass</option>
+                    <option value="Electric">Electric</option>
+                    <option value="Ice">Ice</option>
+                    <option value="Fighting">Fighting</option>
+                    <option value="Poison">Poison</option>
+                    <option value="Ground">Ground</option>
+                    <option value="Flying">Flying</option>
+                    <option value="Psychic">Psychic</option>
+                    <option value="Bug">Bug</option>
+                    <option value="Rock">Rock</option>
+                    <option value="Ghost">Ghost</option>
+                    <option value="Dark">Dark</option>
+                    <option value="Dragon">Dragon</option>
+                    <option value="Steel">Steel</option>
+                    <option value="Fairy">Fairy</option>
+                </select>
+            </div>
+            <div class="form-group row">
+                <label for="notes" class="col-2 col-form-label">Notes</label>
+                <div class="col-10">
+                    <textarea row="5" name="notes" id="notes" class="form-control" required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <input type="submit" id="create" name="create" value="Add new Pokemon">
+            </div>
         </form>
-    </section>
-
-    <section>
-        <?php date('d,m,y'); ?>
-    </section>
-    </section>
+    </div>
 </body>
 
 </html>
