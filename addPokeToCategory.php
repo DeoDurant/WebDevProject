@@ -20,6 +20,7 @@ if (isset($_GET['id'])) {
 }
 ?>
 
+<!DOCTYPE html>
 <head>
     <meta charset="utf-8">
     <title>Professor Oak's Pokedex - New Category</title>
