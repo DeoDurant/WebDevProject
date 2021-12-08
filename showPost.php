@@ -147,6 +147,12 @@ if (isset($_GET['id'])) {
                 <div class="form-group">
                     <input class="btn btn-primary" type="submit" id="submit" name="submit" value="Submit">
                 </div>
+                <div class="form-group">
+                    <label for="captcha">Please Enter the Captcha Text</label>
+                    <img src="captcha.php" alt="CAPTCHA" class="captcha-image"><i class="fas fa-redo refresh-captcha"></i>
+                    <br>
+                    <input type="text" id="captcha" name="captcha_challenge" pattern="[A-Z]{6}">
+                </div>
             </form>
         <?php endif ?>
         <?php if ($_SESSION['username'] == "guest") : ?>
@@ -160,6 +166,12 @@ if (isset($_GET['id'])) {
                 </div>
             </form>
         <?php endif ?>
+        <script type="text/javascript">
+            var refreshButton = document.querySelector(".refresh-captcha");
+            refreshButton.onclick = function() {
+                document.querySelector(".captcha-image").src = 'captcha.php?' + Date.now();
+            }
+        </script>
 
     </div>
 </body>

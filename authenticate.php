@@ -1,16 +1,16 @@
 <?php 
 // Locks page until password and username are entered.
 
-define('ADMIN_LOGIN','wally'); 
-define('ADMIN_PASSWORD','mypass'); 
-define('USER_LOGIN', 'choie');
-define('USER_PASSWORD', 'llamas');
+define('ADMIN_LOGIN','professoroak'); 
+define('ADMIN_PASSWORD','ilovepokemon'); 
+// define('USER_LOGIN', 'choie');
+// define('USER_PASSWORD', 'llamas');
 
 if (!isset($_SERVER['PHP_AUTH_USER']) || !isset($_SERVER['PHP_AUTH_PW']) 
     || ($_SERVER['PHP_AUTH_USER'] != ADMIN_LOGIN) 
-    || ($_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD)
-    || ($_SERVER['PHP_AUTH_USER'] != USER_LOGIN) 
-    || ($_SERVER['PHP_AUTH_PW'] != USER_PASSWORD)) 
+    || ($_SERVER['PHP_AUTH_PW'] != ADMIN_PASSWORD))
+    // || ($_SERVER['PHP_AUTH_USER'] != USER_LOGIN) 
+    // || ($_SERVER['PHP_AUTH_PW'] != USER_PASSWORD)) 
     { 
   header('HTTP/1.1 401 Unauthorized'); 
   header('WWW-Authenticate: Basic realm="Our Blog"'); 

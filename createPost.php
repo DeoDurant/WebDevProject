@@ -1,7 +1,8 @@
 <?php
+include('navbar.php');
 // Checks if there is a current session set, and if the current session is a guest.
 if (!isset($_SESSION) || $_SESSION['username'] == "guest"){
-    header("index.php");
+    header("Location: index.php");
 }
 ?>
 
@@ -18,32 +19,33 @@ if (!isset($_SESSION) || $_SESSION['username'] == "guest"){
     <link href="https://fonts.googleapis.com/css2?family=Nunito:wght@200;400&display=swap" rel="stylesheet">
     <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN" crossorigin="anonymous"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js" integrity="sha384-JZR6Spejh4U02d8jOt6vLEHfe/JQGiRRSQQxSfFWpi1MquVdAyjUar5+76PVCmYl" crossorigin="anonymous"></script>
+    <style>
+        .container{
+            padding:5%
+        }
+    </style>
 </head>
 <body>
-    <?php include('navbar.php') ?>
-
-        <section>
-            <form action="process.php" method="post">
-                <fieldset>
-                    <legend>New Blog Post</legend>
-                    <p>
-                        <label for="title">Title</label>
-                        <input id="title" name="title">
-                    </p>
-                    <p>
-                        <label for="content">Content</label>
-                        <textarea rows="16" name="content" id="content" ></textarea>
-                    </p>
-                    <p>
-                        <input type="submit" id="post" value="Post" name="post">
-                    </p>
-                </fieldset>
-            </form>
-        </section>
-        
-        <section>
-            <?php date('d,m,y'); ?>
-        </section>
-    </section>
+<br></br>
+<div class="container shadow-lg">
+        <form action="process.php" method="post">
+            <legend>New Blog Post</legend>
+            <div class="form-group row">
+                <label for="title" class="col-2 col-form-label">Title</label>
+                <div class="col-10">
+                    <input name="title" id="title" class="form-control" required>
+                </div>
+            </div>
+            <div class="form-group row">
+                <label for="content" class="col-2 col-form-label">Content</label>
+                <div class="col-10">
+                    <textarea rows="16" name="content" id="content" class="form-control" required></textarea>
+                </div>
+            </div>
+            <div class="form-group">
+                <input class="btn btn-primary" type="submit" id="post" name="post" value="Post">
+            </div>
+        </form>
+    </div>
 </body>
 </html>

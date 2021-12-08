@@ -1,5 +1,5 @@
 <?php
-
+include('navbar.php');
 require('connect.php');
 
 $query = "SELECT * FROM discussion ORDER BY id DESC LIMIT 10";
@@ -24,42 +24,46 @@ $statement->execute();
 </head>
 
 <body>
-    <?php include('navbar.php') ?>
+    <br>
     <div class="container">
-        <h1>Forum Posts</h1>
-        <?php if ($statement->rowCount() == 0) : ?>
-            <col><?= "No posts here"; ?></col>
-        <?php endif ?>
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Title</th>
-                    <th>Content</th>
-                    <th>Date Added</th>
-                </tr>
-            </thead>
-            <tbody>
-                <?php while ($row = $statement->fetch()) : ?>
-                    <tr>
-                        <th scope="row"><a href="showPost.php?id=<?= $row['id'] ?>"><?= $row['title'] ?></a></th>
-                        <td>
-                            <?php if (strlen($row['content']) > 150) : ?>
-                                <div class="col"><?= substr($row['content'], 0, 150); ?><a href="showPost.php?id=<?= $row['id'] ?>"> ... Read Full Post</a></div>
-                            <?php else : ?>
-                                <div class="col"><?= $row['content'] ?></div>
-                            <?php endif ?>
-                        </td>
-                        <td>
-                            <?php if ($_SESSION['username'] == "guest") : ?>
-                                <div class="col"><?= $row['datetime'] ?></div>
-                            <?php else : ?>
-                                <div class="col"><?= $row['datetime'] ?> - <a href="editPost.php?id=<?= $row['id'] ?>">Edit</a></div>
-                            <?php endif ?>
-                        </td>
-                    </tr>
-                <?php endwhile ?>
-            </tbody>
-        </table>
+        <div class="row">
+            <h1>Forum Posts</h1>
+            <?php if ($statement->rowCount() == 0) : ?>
+                <h3>No posts here</h3>
+            <?php else : ?>
+                <table class="table table-hover col-10">
+                    <thead>
+                        <tr>
+                            <th>Title</th>
+                            <th>Content</th>
+                            <th>Date Added</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <?php while ($row = $statement->fetch()) : ?>
+                            <tr>
+                                <th scope="row"><a href="showPost.php?id=<?= $row['id'] ?>"><?= $row['title'] ?></a></th>
+                                <td>
+                                    <?php if (strlen($row['content']) > 150) : ?>
+                                        <div class="col"><?= substr($row['content'], 0, 150); ?><a href="showPost.php?id=<?= $row['id'] ?>"> ... Read Full Post</a></div>
+                                    <?php else : ?>
+                                        <div class="col"><?= $row['content'] ?></div>
+                                    <?php endif ?>
+                                </td>
+                                <td>
+                                    <?php if ($_SESSION['username'] == "guest") : ?>
+                                        <div class="col"><?= $row['datetime'] ?></div>
+                                    <?php else : ?>
+                                        <div class="col"><?= $row['datetime'] ?> - <a href="editPost.php?id=<?= $row['id'] ?>">Edit</a></div>
+                                    <?php endif ?>
+                                </td>
+                            </tr>
+                        <?php endwhile ?>
+                    </tbody>
+                </table>
+            <?php endif ?>
+            <?php include('sidebar.php') ?>
+        </div>
     </div>
 </body>
 

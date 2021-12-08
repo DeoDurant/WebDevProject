@@ -24,6 +24,9 @@ session_start();
                             <a class="nav-link" href="discussion.php">Discussion</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="categories.php">Category</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="login.php">Login</a>
                         </li>
                         <li class="nav-item">
@@ -37,7 +40,7 @@ session_start();
                                 <a class="dropdown-item" href="logout.php">Logout</a>
                             </div>
                         </li>
-                    <?php elseif ($_SESSION['username'] == "admin") : ?>
+                    <?php elseif ($_SESSION['accounttype'] == 0) : ?>
                         <li class="nav-item active">
                             <a class="nav-link" href="index.php">Home <span class="sr-only">(current)</span></a>
                         </li>
@@ -45,10 +48,16 @@ session_start();
                             <a class="nav-link" href="discussion.php">Discussion</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="categories.php">Category</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="createPokemon.php">New Pokemon</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="createPost.php">New Post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="createCategories.php">New Category</a>
                         </li>
                         <li class="nav-item">
                             <a class="nav-link" href="users.php">Users</a>
@@ -69,7 +78,13 @@ session_start();
                             <a class="nav-link" href="discussion.php">Discussion</a>
                         </li>
                         <li class="nav-item">
+                            <a class="nav-link" href="categories.php">Category</a>
+                        </li>
+                        <li class="nav-item">
                             <a class="nav-link" href="createPost.php">New Post</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" href="createCategories.php">New Category</a>
                         </li>
                         <li class="nav-item dropdown">
                             <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">

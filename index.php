@@ -1,12 +1,12 @@
 <?php
 include('navbar.php');
 require('connect.php');
-
-if(!isset($_SESSION['username'])){
-   header('Location: login.php');
+//<?php include('sidebar.php')
+if (!isset($_SESSION['username'])) {
+    header('Location: login.php');
 }
 
-$query = "SELECT * FROM pokemon ORDER BY id ASC LIMIT 10";
+$query = "SELECT * FROM pokemon ORDER BY id";
 $statement = $db->prepare($query);
 $statement->execute();
 ?>
@@ -28,35 +28,53 @@ $statement->execute();
 </head>
 
 <body>
+    <br>
     <div class="container">
-        <h1>Pokedex Showcase</h1>
-        <?php if ($statement->rowCount() == 0) : ?>
-            <li><?= "No posts here"; ?></li>
-        <?php endif ?>
-
-        <table class="table table-hover">
-            <thead>
-                <tr>
-                    <th>Dex Entry</th>
-                    <th>Pokemon Name</th>
-                    <th>Typing</th>
-                    <th>Ability</th>
-                    <th>Notes</th>
-                    <th>Date Found</th>
-                </tr>
-            </thead>
-            <tbody>
-            <?php while ($row = $statement->fetch()) : ?>
-                <tr>
-                    <th scope="row"><?= $row['id'] ?></th>
-                    <td><?= $row['name'] ?></td>
-                    <td><?= $row['typing'] ?></td>
-                    <td><?= $row['ability'] ?></td>
-                    <td><?= $row['notes'] ?></td>
-                    <td><?= $row['datetime'] ?></td>
-                </tr>
-                <?php endwhile ?>
-            </tbody>
-        </table>
+        <div class="row">
+            <h1>Pokedex Showcase</h1>
+            <?php if ($statement->rowCount() == 0) : ?>
+                <li><?= "No posts here"; ?></li>
+            <?php endif ?>
+            
+            <table class="table table-hover col-10">
+                <thead>
+                    <tr>
+                        <th>Dex Entry</th>
+                        <th>Picture</th>
+                        <th>Pokemon Name</th>
+                        <th>Typing</th>
+                        <th>Ability</th>
+                        <th>Notes</th>
+                        <th>Date Found</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <?php while ($row = $statement->fetch()) : ?>
+                        <tr>
+                            <th scope="row">
+                                <?= $row['id'] ?>
+                            </th>
+                            <td>
+                                <?php if(!empty($row['imgname'])) :?>
+                                    <img src="<?= 'images/' . $row['imgname'] ?>" alt="<?= $row['name'] ?>">
+                                <?php else :?>
+                                    No image
+                                <?php endif ?>
+                            </td>
+                            <td>
+                                <a href="showPokemon.php?id=<?= $row['id'] ?>"><?= $row['name'] ?></a>
+                            </td>
+                            <td><?= $row['typing'] ?></td>
+                            <td><?= $row['ability'] ?></td>
+                            <td><?= $row['notes'] ?></td>
+                            <td><?= $row['datetime'] ?></td>
+                        </tr>
+                    <?php endwhile ?>
+                </tbody>
+            </table>
+            <?php include('sidebar.php')?>
+        </div>
+    </div>  
 </body>
+
 </html>

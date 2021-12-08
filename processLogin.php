@@ -19,8 +19,9 @@ if (isset($_POST['submit']) == "register") {
             exit();
         }
         
-        $query = "INSERT INTO accounts(id, username, email, password) VALUES (NULL, :username, :email, :password)";
+        $query = "INSERT INTO accounts(id, accounttype, username, email, password) VALUES (NULL, :accounttype, :username, :email, :password)";
         $statement = $db->prepare($query);
+        $statement->bindValue(':accounttype', 1);
         $statement->bindValue(':username', $username);
         $statement->bindValue(':email', $email);
         $statement->bindValue(':password', $passwordHash);
@@ -51,6 +52,7 @@ if (isset($_POST['submit']) == "login") {
         foreach($users as $user) :
             if($selectedUser['username'] == $username && password_verify($password, $selectedUser['password'])) {
                 $_SESSION['username'] = $selectedUser['username'];
+                $_SESSION['accounttype'] = $selectedUser['accounttype'];
 
                 //If username and password is correct send user to the index page.
                 header("Location: index.php");

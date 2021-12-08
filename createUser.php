@@ -1,7 +1,7 @@
 <?php
 include('navbar.php');
 // Checks if there is no current session set, and if the current sessions username is not admin.
-if (!isset($_SESSION) || $_SESSION['username'] != "admin") {
+if (!isset($_SESSION) || $_SESSION['accounttype'] != 0) {
     header("Location: index.php");
 }
 ?>
@@ -52,7 +52,7 @@ if (!isset($_SESSION) || $_SESSION['username'] != "admin") {
                 </div>
             </div>
             <?php if (isset($_GET['error'])) : ?>
-                <div class="form-group error"><?php echo $_GET['error'] ?></div>
+                <div class="form-group alert alert-danger"><?php echo $_GET['error'] ?></div>
             <?php endif ?>
             <div class="form-group row">
                 <select name="accounttype" class="custom-select">
