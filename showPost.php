@@ -166,12 +166,6 @@ if (isset($_GET['id'])) {
                 </div>
             </form>
         <?php endif ?>
-        <script type="text/javascript">
-            var refreshButton = document.querySelector(".refresh-captcha");
-            refreshButton.onclick = function() {
-                document.querySelector(".captcha-image").src = 'captcha.php?' + Date.now();
-            }
-        </script>
 
     </div>
 </body>
