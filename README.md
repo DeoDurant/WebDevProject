@@ -23,4 +23,4 @@ The "New Pokemon" page is where Professor Oak can upload his new findings.
 ![image](https://github.com/DeoDurant/WebDevProject/assets/83045996/c548e403-15e8-4d86-9677-56468618391b)
 
 Lastly is the Categories page where you can find a pokemon under the typings.
-![image](https://github.com/DeoDurant/WebDevProject/assets/83045996/b6b8b41d-0af0-4ec7-a83e-4600b10e7fda)
+![chrome_vQOcx3W3Yp](https://github.com/DeoDurant/WebDevProject/assets/83045996/e1d72cef-2bd6-4a0e-8eff-00e9cbfa07b4)
